@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyAapp</string>
+    <string name="greeting_text">Hi Moorthy</string>
+    <string name="login_text">Login</string>
+    <string name="username_text">User name</string>
+    <string name="password_text">Password</string>
+</resources>
