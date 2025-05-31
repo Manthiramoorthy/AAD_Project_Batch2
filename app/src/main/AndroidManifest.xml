@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,8 +19,11 @@
         android:theme="@style/Theme.MyAapp"
         tools:targetApi="31">
         <activity
-            android:name=".RecyclerViewActivity"
-            android:exported="true" >
+            android:name=".note_app.ui.NoteDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".note_app.ui.NoteListActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,10 +31,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".LoginActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".BroadCastReceiverActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RecyclerViewActivity"
+            android:exported="true" />
+        <activity
             android:name=".ListViewActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ConstraintLayout"
             android:exported="false" />
@@ -34,7 +50,13 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

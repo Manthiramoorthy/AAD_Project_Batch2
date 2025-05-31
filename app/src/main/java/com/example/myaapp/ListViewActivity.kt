@@ -93,6 +93,8 @@ class ListViewActivity : AppCompatActivity() {
         listView.setOnItemClickListener { adapterView, view, index, l -> // listview, item view, index, view id
             Toast.makeText(this,  "Clicked " + list[index], Toast.LENGTH_LONG).show()
         }
+        val username = intent.getStringExtra("username")
+        Toast.makeText(this, "Userame " + username, Toast.LENGTH_LONG).show()
     }
 }
 

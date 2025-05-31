@@ -1,6 +1,8 @@
 package com.example.myaapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -9,17 +11,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myaapp.databinding.ActivityRecyclerViewBinding
 
 class RecyclerViewActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_recycler_view)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+        val binding = ActivityRecyclerViewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
 
         val list = listOf(
             Person(
@@ -100,13 +101,17 @@ class RecyclerViewActivity : AppCompatActivity() {
             )
         )
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.adapter = ProfileRecyclerViewAdapter(list)
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.recyclerView.adapter = ProfileRecyclerViewAdapter(list)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 //        recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
 
-        recyclerView.addItemDecoration(
+        binding.recyclerView.addItemDecoration(
             DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         )
+
+        val username = intent.getStringExtra("username");
+
+        binding.textGreeting.text = "Hi, " + username
     }
 }

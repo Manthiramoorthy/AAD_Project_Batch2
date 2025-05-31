@@ -6,5 +6,5 @@
     <color name="background_Color">#A3CED3</color>
     <color name="my_light_primary">#DCCBCB</color>
     <color name="my_dark_primary">#000000</color>
-    <color name="green">#4CAF50</color>
+    <color name="green">@android:color/holo_green_dark</color>
 </resources>
