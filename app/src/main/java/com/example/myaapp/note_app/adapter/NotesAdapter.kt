@@ -1,4 +1,4 @@
-package com.example.myaapp.note_app.data
+package com.example.myaapp.note_app.adapter
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -8,7 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myaapp.R
 import com.example.myaapp.note_app.common.Constant.CONTENT_KEY
+import com.example.myaapp.note_app.common.Constant.LIST_ITEM_VALUE
+import com.example.myaapp.note_app.common.Constant.SOURCE_KEY
 import com.example.myaapp.note_app.common.Constant.TITLE_KEY
+import com.example.myaapp.note_app.data.Note
 import com.example.myaapp.note_app.ui.NoteDetailsActivity
 
 class NotesAdapter(private val list: List<Note>): RecyclerView.Adapter<NotesAdapter.ViewHolder>() {
@@ -34,6 +37,7 @@ class NotesAdapter(private val list: List<Note>): RecyclerView.Adapter<NotesAdap
             val intent = Intent(view.context, NoteDetailsActivity::class.java)
             intent.putExtra(TITLE_KEY, list[position].title)
             intent.putExtra(CONTENT_KEY, list[position].content)
+            intent.putExtra(SOURCE_KEY, LIST_ITEM_VALUE)
             view.context.startActivity(intent)
         }
     }

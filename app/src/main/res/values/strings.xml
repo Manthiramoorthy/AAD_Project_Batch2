@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">MyAapp</string>
+    <string name="app_name">Batch2 App</string>
     <string name="greeting_text">Hi Moorthy</string>
     <string name="login_text">Login</string>
     <string name="username_text">User name</string>
     <string name="password_text">Password</string>
     <string name="open_google">Open Google</string>
+    <string name="phone_number">Phone number</string>
+    <string name="web_view">Web View</string>
+    <string name="title">Title</string>
+    <string name="save">Save</string>
+    <string name="content">Content</string>
 </resources>

@@ -8,6 +8,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.myaapp.R
 import com.example.myaapp.databinding.ActivityNoteDetailsBinding
 import com.example.myaapp.note_app.common.Constant.CONTENT_KEY
+import com.example.myaapp.note_app.common.Constant.LIST_ITEM_VALUE
+import com.example.myaapp.note_app.common.Constant.SOURCE_KEY
 import com.example.myaapp.note_app.common.Constant.TITLE_KEY
 
 class NoteDetailsActivity : AppCompatActivity() {
@@ -22,10 +24,16 @@ class NoteDetailsActivity : AppCompatActivity() {
             insets
         }
 
-        val title = intent.getStringExtra(TITLE_KEY)
-        val content = intent.getStringExtra(CONTENT_KEY)
 
-        binding.titleText.setText(title)
-        binding.contentText.setText(content)
+        val source = intent.getStringExtra(SOURCE_KEY)
+        if (source == LIST_ITEM_VALUE) {
+            val title = intent.getStringExtra(TITLE_KEY)
+            val content = intent.getStringExtra(CONTENT_KEY)
+            binding.titleText.setText(title)
+            binding.contentText.setText(content)
+        } else {
+            binding.saveButton.text = "Create"
+        }
+
     }
 }
