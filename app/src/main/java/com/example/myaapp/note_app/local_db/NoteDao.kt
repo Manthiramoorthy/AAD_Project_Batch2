@@ -7,17 +7,17 @@ import androidx.room.Query
 import androidx.room.Update
 
 
-@Dao
+@Dao // Data access object
 interface NoteDao {
     @Insert
-    fun insert(note: Note?)
-
-    @Query("SELECT * FROM notes")
-    fun getAll(): List<Note?>?
-
-    @Delete
-    fun delete(note: Note?)
+    fun insert(note: Note)
 
     @Update
-    fun update(note: Note?)
+    fun update(note: Note)
+
+    @Query("select * from notes")
+    fun getAll(): List<Note>?
+
+    @Delete
+    fun delete(note: Note)
 }

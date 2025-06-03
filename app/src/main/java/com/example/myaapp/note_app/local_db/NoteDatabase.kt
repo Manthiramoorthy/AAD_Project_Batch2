@@ -7,34 +7,19 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Note::class], version = 1)
 abstract class NoteDatabase : RoomDatabase() {
+    // create abstract function which will return dao
     abstract fun noteDao(): NoteDao
-//    companion object {
-//        @Volatile
-//        private var INSTANCE: NoteDatabase? = null
-//
-//        fun getInstance(context: Context): NoteDatabase {
-//            return INSTANCE ?: synchronized(this) {
-//                val instance = Room.databaseBuilder(
-//                    context.applicationContext,
-//                    NoteDatabase::class.java,
-//                    "note_database"
-//                ).build()
-//                INSTANCE = instance
-//                instance
-//            }
-//        }
-//    }
 
+    // create the NoteDatabase object
     companion object {
-        @Volatile
         private var INSTANCE: NoteDatabase? = null
         fun getInstance(context: Context): NoteDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
+                    context = context,
                     NoteDatabase::class.java,
                     "note_database"
-                ).build()
+                ).build() // create database if not exists, create tables if not exists, dao object
                 INSTANCE = instance
                 instance
             }

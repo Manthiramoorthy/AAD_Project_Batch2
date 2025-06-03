@@ -10,5 +10,5 @@ data class Note(
     val id: Int = 0,
     val title: String,
     val content: String,
-    val timeStamp: String = System.currentTimeMillis().toString()
+    val timestamp: Long = System.currentTimeMillis()
 )
