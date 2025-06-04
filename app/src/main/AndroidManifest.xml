@@ -8,6 +8,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,13 +21,27 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".AppPermissionActivity"
-            android:exported="true"></activity>
+            android:name=".others.ui.ProfileUpdateActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".others.ui.AppPermissionActivity"
+            android:exported="true" />
         <activity
             android:name=".note_app.ui.NoteDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".note_app.ui.NoteListActivity"
+            android:exported="true">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".others.ui.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,27 +50,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:exported="true">
-
-        </activity>
-        <activity
-            android:name=".BroadCastReceiverActivity"
+            android:name=".others.ui.BroadCastReceiverActivity"
             android:exported="true" />
         <activity
-            android:name=".RecyclerViewActivity"
+            android:name=".others.ui.RecyclerViewActivity"
             android:exported="true" />
         <activity
-            android:name=".ListViewActivity"
+            android:name=".others.ui.ListViewActivity"
             android:exported="true" />
         <activity
-            android:name=".ConstraintLayout"
+            android:name=".others.ui.ConstraintLayout"
             android:exported="false" />
         <activity
-            android:name=".DetailsActivity"
+            android:name=".others.ui.DetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".others.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

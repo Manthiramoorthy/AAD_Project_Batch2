@@ -1,29 +1,22 @@
-package com.example.myaapp
+package com.example.myaapp.others.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.widget.ArrayAdapter
-import android.widget.ListView
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myaapp.R
+import com.example.myaapp.databinding.ActivityRecyclerViewBinding
+import com.example.myaapp.others.adapter.ProfileRecyclerViewAdapter
 
-class ListViewActivity : AppCompatActivity() {
+class RecyclerViewActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_list_view)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        val listView = findViewById<ListView>(R.id.listView)
+        val binding = ActivityRecyclerViewBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-//        val list = listOf("Rohith", "Fateh", "Moorthy", "Kabir", "Lalitha", "Anubhav")
-//        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, list)
 
         val list = listOf(
             Person(
@@ -85,20 +78,36 @@ class ListViewActivity : AppCompatActivity() {
             Person(
                 "Moorthy",
                 R.drawable.ic_launcher_background
+            ),
+            Person(
+                "Moorthy",
+                R.drawable.ic_launcher_background
+            ),
+            Person(
+                "Rohith",
+                R.drawable.nature
+            ),
+            Person(
+                "Fateh",
+                R.drawable.success
+            ),
+            Person(
+                "Moorthy",
+                R.drawable.ic_launcher_background
             )
         )
-        val adapter = ProfileAdapter(list)
-        listView.adapter = adapter
 
-        listView.setOnItemClickListener { adapterView, view, index, l -> // listview, item view, index, view id
-            Toast.makeText(this,  "Clicked " + list[index], Toast.LENGTH_LONG).show()
-        }
-        val username = intent.getStringExtra("username")
-        Toast.makeText(this, "Userame " + username, Toast.LENGTH_LONG).show()
+
+        binding.recyclerView.adapter = ProfileRecyclerViewAdapter(list)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+//        recyclerView.layoutManager = GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false)
+
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        )
+
+        val username = intent.getStringExtra("username");
+
+        binding.textGreeting.text = "Hi, " + username
     }
 }
-
-class Person(
-    val name: String,
-    val res: Int
-)

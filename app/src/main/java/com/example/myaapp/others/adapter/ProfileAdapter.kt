@@ -1,4 +1,4 @@
-package com.example.myaapp
+package com.example.myaapp.others.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.myaapp.R
+import com.example.myaapp.others.ui.Person
 
 class ProfileAdapter(private val list: List<Person>) : BaseAdapter() {
     override fun getCount(): Int {

@@ -1,4 +1,4 @@
-package com.example.myaapp
+package com.example.myaapp.others.ui
 
 import android.Manifest
 import android.content.Intent
@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.myaapp.R
 import com.example.myaapp.databinding.ActivityAppPermissionBinding
 
 class AppPermissionActivity : AppCompatActivity() {

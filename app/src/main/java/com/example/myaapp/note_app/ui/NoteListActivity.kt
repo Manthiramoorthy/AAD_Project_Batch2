@@ -43,6 +43,13 @@ class NoteListActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
+        getDataFromDBUpdateUI()
+        Log.d("DetailsActivity", "onStart")
+
+        super.onStart()
+    }
+
+    private fun getDataFromDBUpdateUI() {
         lifecycleScope.launch(Dispatchers.IO) {
             val list = NoteDatabase.getInstance(this@NoteListActivity).noteDao().getAll()
             if (!list.isNullOrEmpty()) {
@@ -65,9 +72,6 @@ class NoteListActivity : AppCompatActivity() {
             }
 
         }
-        Log.d("DetailsActivity", "onStart")
-
-        super.onStart()
     }
 
     override fun onResume() {

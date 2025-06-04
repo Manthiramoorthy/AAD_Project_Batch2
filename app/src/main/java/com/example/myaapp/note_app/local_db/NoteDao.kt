@@ -13,11 +13,11 @@ interface NoteDao {
     fun insert(note: Note)
 
     @Update
-    fun update(note: Note)
+    fun update(note: Note) // based id, it will update the title and content
 
     @Query("select * from notes")
     fun getAll(): List<Note>?
 
     @Delete
-    fun delete(note: Note)
+    fun delete(note: Note) // based on id, it will delete the data
 }

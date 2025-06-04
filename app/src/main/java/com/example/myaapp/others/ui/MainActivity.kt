@@ -1,18 +1,14 @@
-package com.example.myaapp
+package com.example.myaapp.others.ui
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myaapp.R
 import com.example.myaapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
