@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".coroutines.CoroutinesExampleActivity">
+
+    <TextView
+        android:id="@+id/task1Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="@style/title_style"
+        android:text="Task 1 text" />
+
+    <TextView
+        android:id="@+id/task2Text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="@style/title_style"
+        android:text="Task 2 text" />
+
+    <Button
+        android:id="@+id/task1SyncButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/start_task1"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/task2SyncButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start task 2 - Sync"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/bothSyncButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start task 1 and 2 - Sync"
+        tools:layout_editor_absoluteX="174dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+
+</LinearLayout>

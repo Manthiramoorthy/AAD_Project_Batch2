@@ -3,6 +3,7 @@ package com.example.myaapp.note_app_api_based
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,9 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myaapp.R
 import com.example.myaapp.databinding.ActivityNotesApiBinding
 import com.example.myaapp.note_app_api_based.api.ApiRepository
+import com.example.myaapp.note_app_api_based.api.ResultWrapper
+import com.google.gson.JsonParseException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class NotesApiActivity : AppCompatActivity() {
     lateinit var binding: ActivityNotesApiBinding
@@ -38,26 +43,30 @@ class NotesApiActivity : AppCompatActivity() {
     }
 
     override fun onStart() {
-        Log.d("DetailsActivity", "onStart")
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                val list = ApiRepository.apiService.getAll()
-                if (list != null) {
-                    withContext(Dispatchers.Main) {
-                        binding.recyclerViewNotes.adapter = NotesApiAdapter(list)
+        Log.d("DetailsActivity", "onStart") // Main
+        lifecycleScope.launch {
+            val result = lifecycleScope.async(Dispatchers.IO) {
+                ApiRepository.safeApiCall {
+                    ApiRepository.apiService.getAll()
+                }
+            }.await()
+            when (result) {
+                is ResultWrapper.Success -> {
+                    if (result.data != null)
+                        binding.recyclerViewNotes.adapter = NotesApiAdapter(result.data) // Main
                         binding.recyclerViewNotes.layoutManager = LinearLayoutManager(
                             this@NotesApiActivity,
                             LinearLayoutManager.VERTICAL,
                             false
                         )
+                }
+
+                is ResultWrapper.Failure -> {
+                    Toast.makeText(this@NotesApiActivity, result.message, Toast.LENGTH_LONG).show()
                     }
                 }
-            } catch (e: Exception) {
-                Log.d("NotesApiActivity", e.stackTraceToString())
-                e.printStackTrace()
-            }
         }
-        super.onStart()
+        super.onStart() // Main
     }
 
     override fun onResume() {

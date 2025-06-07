@@ -1,6 +1,7 @@
 package com.example.myaapp.note_app_api_based
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,11 +11,15 @@ import androidx.lifecycle.lifecycleScope
 import com.example.myaapp.R
 import com.example.myaapp.databinding.ActivityNoteDetailsBinding
 import com.example.myaapp.databinding.ActivityNotesApiBinding
+import com.example.myaapp.note_app_api_based.NotesApiActivity
 import com.example.myaapp.note_app_api_based.api.ApiRepository
 import com.example.myaapp.note_app_api_based.api.NoteApi
+import com.example.myaapp.note_app_api_based.api.ResultWrapper
+import com.google.gson.JsonParseException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
 
 class NoteDetailsApiActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,11 +41,33 @@ class NoteDetailsApiActivity : AppCompatActivity() {
                 content = content
             )
             lifecycleScope.launch(Dispatchers.IO) {
-                ApiRepository.apiService.createNote(note)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@NoteDetailsApiActivity, "Created", Toast.LENGTH_LONG).show()
-                    onBackPressedDispatcher.onBackPressed()
+
+                val result = ApiRepository.safeApiCall {
+                    ApiRepository.apiService.createNote(note)
                 }
+                when (result) {
+                    is ResultWrapper.Success -> {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                this@NoteDetailsApiActivity,
+                                "Created",
+                                Toast.LENGTH_LONG
+                            ).show()
+                            onBackPressedDispatcher.onBackPressed()
+                        }
+                    }
+
+                    is ResultWrapper.Failure -> {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                this@NoteDetailsApiActivity,
+                                result.message,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
+                }
+
             }
         }
     }

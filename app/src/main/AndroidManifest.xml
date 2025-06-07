@@ -21,6 +21,11 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".coroutines.CoroutinesExampleActivity"
+            android:exported="true">
+
+        </activity>
+        <activity
             android:name=".note_app_api_based.NoteDetailsApiActivity"
             android:exported="false" />
         <activity
