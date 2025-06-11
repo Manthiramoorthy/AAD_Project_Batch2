@@ -16,7 +16,6 @@ class MusicService : Service() {
         mediaPlayer.isLooping = true
         mediaPlayer.start()
 
-
         return super.onStartCommand(intent, flags, startId)
     }
 

@@ -40,6 +40,8 @@ android {
 }
 
 dependencies {
+    val work_version = "2.10.1"
+    implementation("androidx.work:work-runtime-ktx:$work_version")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 

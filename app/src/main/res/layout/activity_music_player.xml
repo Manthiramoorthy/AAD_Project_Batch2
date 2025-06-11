@@ -19,4 +19,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Stop" />
+
+    <Button
+        android:id="@+id/scheduleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="One Time Schedule Music" />
+
+    <Button
+        android:id="@+id/cancelScheduleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel schedule" />
+
+    <Button
+        android:id="@+id/perioticScheduleButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Periotic Schedule Music" />
 </LinearLayout>

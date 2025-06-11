@@ -39,7 +39,6 @@ class MusicForegroundService : Service() {
 
         } else {
             mediaPlayer = MediaPlayer.create(this, R.raw.sample)
-            mediaPlayer.isLooping = true
             mediaPlayer.start()
 
             val notification = createNotification()

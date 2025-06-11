@@ -3,6 +3,7 @@ package com.example.myaapp.musicapp
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.icu.util.Calendar
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
@@ -13,8 +14,15 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import androidx.work.Worker
 import com.example.myaapp.R
 import com.example.myaapp.databinding.ActivityMusicPlayerBinding
+import java.util.concurrent.TimeUnit
 
 class MusicPlayerActivity : AppCompatActivity() {
 
@@ -53,6 +61,45 @@ class MusicPlayerActivity : AppCompatActivity() {
 //            stopService(intent)
             stopService(serviceIntent)
         }
+        val constraint = Constraints.Builder()
+            .setRequiresCharging(true)
+            .setRequiresBatteryNotLow(true)
+            .build()
+        val timeInMillis = calculateBetweenTimeInMillis(7, 20)
+        val request = OneTimeWorkRequestBuilder<MusicWorker>()
+            .setInitialDelay(timeInMillis, TimeUnit.MILLISECONDS)
+            .setConstraints(constraint)
+            .build()
+
+        binding.scheduleButton.setOnClickListener {
+            WorkManager.getInstance(this).enqueue(request)
+        }
+
+        binding.cancelScheduleButton.setOnClickListener {
+            WorkManager.getInstance(this).cancelWorkById(request.id)
+            val intent = Intent(this, MusicForegroundService::class.java)
+            stopService(intent)
+        }
+
+        binding.perioticScheduleButton.setOnClickListener {
+            val request = PeriodicWorkRequestBuilder<MusicWorker>(15, TimeUnit.MINUTES)
+                .setConstraints(constraint)
+                .build()
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                "music_worker",
+                ExistingPeriodicWorkPolicy.KEEP,
+                request
+            )
+        }
+    }
+
+    fun calculateBetweenTimeInMillis(hour: Int, minute: Int): Long {
+        val calendar = Calendar.getInstance()
+        val alarmCalendar = Calendar.getInstance().apply {
+            set(Calendar.HOUR, hour)
+            set(Calendar.MINUTE, minute)
+        }
+        return alarmCalendar.timeInMillis - calendar.timeInMillis
     }
 
     override fun onRequestPermissionsResult(
