@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".note_app_api_based.NotesApiActivity">
+    tools:context=".note_app_api_based.ui.NotesApiActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"

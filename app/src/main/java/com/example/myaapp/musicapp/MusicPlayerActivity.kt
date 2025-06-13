@@ -82,7 +82,7 @@ class MusicPlayerActivity : AppCompatActivity() {
         }
 
         binding.perioticScheduleButton.setOnClickListener {
-            val request = PeriodicWorkRequestBuilder<MusicWorker>(15, TimeUnit.MINUTES)
+            val request = PeriodicWorkRequestBuilder<MusicWorker>(14, TimeUnit.MINUTES)
                 .setConstraints(constraint)
                 .build()
             WorkManager.getInstance(this).enqueueUniquePeriodicWork(

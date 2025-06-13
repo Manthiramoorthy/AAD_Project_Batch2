@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myaapp.R
 import com.example.myaapp.note_app.common.Constant
-import com.example.myaapp.note_app.local_db.Note
 import com.example.myaapp.note_app_api_based.api.NoteApi
+import com.example.myaapp.note_app_api_based.ui.NoteDetailsApiActivity
 
 class NotesApiAdapter(val list: List<NoteApi>) :
     RecyclerView.Adapter<NotesApiAdapter.ViewHolder>() {

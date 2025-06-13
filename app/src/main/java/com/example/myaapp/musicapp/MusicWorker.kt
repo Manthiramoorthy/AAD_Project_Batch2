@@ -13,8 +13,10 @@ class MusicWorker(private val context: Context, params: WorkerParameters) :
     Worker(context, params) {
     override fun doWork(): Result {
         Log.d(LOG_TAG, "doWork")
-        val intent = Intent(context, MusicForegroundService::class.java)
-        ContextCompat.startForegroundService(context, intent)
+//        val intent = Intent(context, MusicForegroundService::class.java)
+//        ContextCompat.startForegroundService(context, intent)
+
+        // write the code to upload
         return Result.success()
     }
 }

@@ -4,13 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.contextaware.ContextAware
 import androidx.annotation.RequiresPermission
-import com.example.myaapp.note_app_api_based.NotesApiActivity
 import com.example.myaapp.note_app_api_based.common.Constant
-import com.google.gson.JsonParseException
 import okhttp3.Cache
 import okhttp3.CacheControl
 import okhttp3.Interceptor
@@ -18,7 +13,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 

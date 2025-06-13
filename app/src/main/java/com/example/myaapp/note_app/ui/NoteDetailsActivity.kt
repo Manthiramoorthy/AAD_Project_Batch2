@@ -5,10 +5,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.myaapp.R
 import com.example.myaapp.databinding.ActivityNoteDetailsBinding
@@ -19,13 +21,19 @@ import com.example.myaapp.note_app.common.Constant.LIST_ITEM_VALUE
 import com.example.myaapp.note_app.common.Constant.SOURCE_KEY
 import com.example.myaapp.note_app.common.Constant.TITLE_KEY
 import com.example.myaapp.note_app.local_db.Note
+import com.example.myaapp.note_app.local_db.NoteDao
 import com.example.myaapp.note_app.local_db.NoteDatabase
+import com.example.myaapp.note_app.viewmodel.NoteDetailsViewModel
+import com.example.myaapp.note_app.viewmodel.NoteDetailsViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class NoteDetailsActivity : AppCompatActivity() {
     lateinit var binding: ActivityNoteDetailsBinding
+    lateinit var viewModel: NoteDetailsViewModel
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 102 && resultCode == RESULT_OK) {
@@ -46,6 +54,12 @@ class NoteDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+
+        val noteDao = NoteDatabase.getInstance(this).noteDao()
+        val factory = NoteDetailsViewModelFactory(noteDao)
+        viewModel = ViewModelProvider(this, factory)[NoteDetailsViewModel::class.java]
+
         binding = ActivityNoteDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -74,63 +88,31 @@ class NoteDetailsActivity : AppCompatActivity() {
         }
 
 
-
-
-
-
-
-
         binding.deleteButton.setOnClickListener {
             val id = intent.getIntExtra(ID_KEY, 0)
-            val note = Note(
-                id = id,
-                title = "",
-                content = ""
-            )
-            lifecycleScope.launch(Dispatchers.IO) {
-                NoteDatabase.getInstance(this@NoteDetailsActivity).noteDao().delete(note)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@NoteDetailsActivity, "Note Delete", Toast.LENGTH_LONG)
-                        .show()
-                    onBackPressedDispatcher.onBackPressed()
-                }
-            }
+            viewModel.deleteNote(id)
         }
 
         binding.saveButton.setOnClickListener {
             if (source == Constant.CREATE_VALUE) {
                 val title = binding.titleText.text.toString()
                 val content = binding.contentText.text.toString()
-                val note = Note(
-                    title = title,
-                    content = content
-                )
-                lifecycleScope.launch(Dispatchers.IO) {
-                    NoteDatabase.getInstance(this@NoteDetailsActivity).noteDao().insert(note)
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@NoteDetailsActivity, "Note created", Toast.LENGTH_LONG)
-                            .show()
-                        onBackPressedDispatcher.onBackPressed()
-                    }
-                }
+                viewModel.createNote(title, content)
             } else {
                 val title = binding.titleText.text.toString()
                 val content = binding.contentText.text.toString()
                 val id = intent.getIntExtra(ID_KEY, 0)
-                val note = Note(
-                    id = id,
-                    title = title,
-                    content = content
-                )
-                lifecycleScope.launch(Dispatchers.IO) {
-                    NoteDatabase.getInstance(this@NoteDetailsActivity).noteDao().update(note)
-                    withContext(Dispatchers.Main) {
-                        Toast.makeText(this@NoteDetailsActivity, "Note Updated", Toast.LENGTH_LONG)
-                            .show()
-                        onBackPressedDispatcher.onBackPressed()
-                    }
-                }
+                viewModel.updateNote(id, title, content)
             }
+        }
+
+        viewModel.successMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+        viewModel.failureMessage.observe(this) { message ->
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }
 
     }
