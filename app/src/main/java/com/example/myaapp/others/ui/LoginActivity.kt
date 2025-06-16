@@ -2,6 +2,7 @@ package com.example.myaapp.others.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myaapp.databinding.ActivityLoginBinding
@@ -24,14 +25,6 @@ class LoginActivity : AppCompatActivity() {
 
 
         binding.loginButton.setOnClickListener {
-//            lifecycleScope.launch(Dispatchers.IO) {
-//                for (i in 1..100) {
-//                    Log.d("LoginActivity", "i = " + i)
-//                    withContext(Dispatchers.Main) {
-//                        binding.textView.text = "i = " + i
-//                    }
-//                }
-//            }
 
 
             val username = binding.editTextUsername.text.toString()
@@ -49,7 +42,9 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
                 Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Invalid credentails", Toast.LENGTH_LONG).show()
+                binding.errorMessage.visibility = View.VISIBLE
+                binding.errorMessage.text = "Invalid credentials"
+                Toast.makeText(this, "Invalid credentials", Toast.LENGTH_LONG).show()
             }
         }
     }

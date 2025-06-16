@@ -52,7 +52,6 @@ class NoteDetailsViewModel : ViewModel() {
                     apiFailureResult.postValue(result.message)
                 }
             }
-
         }
     }
 }

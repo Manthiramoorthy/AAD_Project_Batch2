@@ -54,11 +54,7 @@
         <activity
             android:name=".note_app_api_based.ui.NotesApiActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".others.ui.ProfileUpdateActivity"
