@@ -1,5 +1,6 @@
 package com.example.myaapp
 
+import androidx.test.espresso.Espresso.closeSoftKeyboard
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
@@ -41,8 +42,11 @@ class LoginActivityTest {
     @Test
     fun checkLoginActivityWithValidCredentialsAndLogoutCheck() {
         onView(withId(R.id.editTextUsername)).perform(typeText("Username"))
+        closeSoftKeyboard()
         onView(withId(R.id.editTextPassword)).perform(typeText("1234567890"))
+        closeSoftKeyboard()
         onView(withId(R.id.loginButton)).perform(click())
+        closeSoftKeyboard()
 
         onView(withId(R.id.logoutButton)).perform(click())
 
